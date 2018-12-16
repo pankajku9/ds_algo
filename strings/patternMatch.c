@@ -132,7 +132,7 @@ void BMMatch(char *text, char *patt)
 	free(LO);
 
 }
-
+//TODO add more test case
 
 int main()
 {

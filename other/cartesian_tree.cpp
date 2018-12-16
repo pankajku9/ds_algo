@@ -6,7 +6,7 @@
 
 using namespace std;
 
-#include "../../ds_algo1/tree/bst.h"
+#include "../tree/bst.h"
 
 struct cartesian_tree{
     tree_node *node;
