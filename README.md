@@ -1,2 +1,2 @@
 # ds_algo
-Implementation and testing of text book data structures and algorithms
+Implementation and testing of important data structures and algorithms
