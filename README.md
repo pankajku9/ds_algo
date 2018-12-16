@@ -1,4 +1,3 @@
-# ds_algo
 Implementation and testing of important data structures and algorithms
 
 # Details
@@ -15,6 +14,7 @@ This repository contains implementation (in c and c++) of data structures and va
 9. Graph (Adjoint matrix and adjoint list) 
 
 It also have algorithms such as 
+
 1. [Sorting](sorting/Readme.md)
 2. Searching 
 3. String matching 
