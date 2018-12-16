@@ -1,0 +1,97 @@
+------------Testing Bubble Sort------------------
+ 1.single_input_test : 1
+ 1.single_input_test passed at:exec_sort_algo,sort.cpp:367
+ 2.sorted_input_test : 1 2 3 4
+ 2.sorted_input_test passed at:exec_sort_algo,sort.cpp:367
+ 3.equal_input_test  : 1 1 1 1
+ 3.equal_input_test  passed at:exec_sort_algo,sort.cpp:367
+ 4.rev_sorted_test   : 61 71 81 91
+ 4.rev_sorted_test   passed at:exec_sort_algo,sort.cpp:367
+ 5.negt_test         : -81 -61 71 91
+ 5.negt_test         passed at:exec_sort_algo,sort.cpp:367
+------------Testing Insertion Sort------------------
+ 1.single_input_test : 1
+ 1.single_input_test passed at:exec_sort_algo,sort.cpp:367
+ 2.sorted_input_test : 1 2 3 4
+ 2.sorted_input_test passed at:exec_sort_algo,sort.cpp:367
+ 3.equal_input_test  : 1 1 1 1
+ 3.equal_input_test  passed at:exec_sort_algo,sort.cpp:367
+ 4.rev_sorted_test   : 61 71 81 91
+ 4.rev_sorted_test   passed at:exec_sort_algo,sort.cpp:367
+ 5.negt_test         : -81 -61 71 91
+ 5.negt_test         passed at:exec_sort_algo,sort.cpp:367
+------------Testing Selection Sort------------------
+ 1.single_input_test : 1
+ 1.single_input_test passed at:exec_sort_algo,sort.cpp:367
+ 2.sorted_input_test : 1 2 3 4
+ 2.sorted_input_test passed at:exec_sort_algo,sort.cpp:367
+ 3.equal_input_test  : 1 1 1 1
+ 3.equal_input_test  passed at:exec_sort_algo,sort.cpp:367
+ 4.rev_sorted_test   : 61 71 81 91
+ 4.rev_sorted_test   passed at:exec_sort_algo,sort.cpp:367
+ 5.negt_test         : -81 -61 71 91
+ 5.negt_test         passed at:exec_sort_algo,sort.cpp:367
+------------Testing Merge Sort------------------
+ 1.single_input_test : 1
+ 1.single_input_test passed at:exec_sort_algo,sort.cpp:367
+ 2.sorted_input_test : 1 2 3 4
+ 2.sorted_input_test passed at:exec_sort_algo,sort.cpp:367
+ 3.equal_input_test  : 1 1 1 1
+ 3.equal_input_test  passed at:exec_sort_algo,sort.cpp:367
+ 4.rev_sorted_test   : 61 71 81 91
+ 4.rev_sorted_test   passed at:exec_sort_algo,sort.cpp:367
+ 5.negt_test         : -81 -61 71 91
+ 5.negt_test         passed at:exec_sort_algo,sort.cpp:367
+------------Testing Quick Sort------------------
+ 1.single_input_test : 1
+ 1.single_input_test passed at:exec_sort_algo,sort.cpp:367
+ 2.sorted_input_test : 1 2 3 4
+ 2.sorted_input_test passed at:exec_sort_algo,sort.cpp:367
+ 3.equal_input_test  : 1 1 1 1
+ 3.equal_input_test  passed at:exec_sort_algo,sort.cpp:367
+ 4.rev_sorted_test   : 61 71 81 91
+ 4.rev_sorted_test   passed at:exec_sort_algo,sort.cpp:367
+ 5.negt_test         : -81 -61 71 91
+ 5.negt_test         passed at:exec_sort_algo,sort.cpp:367
+------------Testing heap_sort------------------
+ 1.single_input_test : 1
+ 1.single_input_test passed at:exec_sort_algo,sort.cpp:367
+ 2.sorted_input_test : 1 2 3 4
+ 2.sorted_input_test passed at:exec_sort_algo,sort.cpp:367
+ 3.equal_input_test  : 1 1 1 1
+ 3.equal_input_test  passed at:exec_sort_algo,sort.cpp:367
+ 4.rev_sorted_test   : 61 71 81 91
+ 4.rev_sorted_test   passed at:exec_sort_algo,sort.cpp:367
+ 5.negt_test         : -81 -61 71 91
+ 5.negt_test         passed at:exec_sort_algo,sort.cpp:367
+------------Testing counting_sort------------------
+ 1.single_input_test : 1
+ 1.single_input_test passed at:exec_sort_algo,sort.cpp:367
+ 2.sorted_input_test : 1 2 3 4
+ 2.sorted_input_test passed at:exec_sort_algo,sort.cpp:367
+ 3.equal_input_test  : 1 1 1 1
+ 3.equal_input_test  passed at:exec_sort_algo,sort.cpp:367
+ 4.rev_sorted_test   : 61 71 81 91
+ 4.rev_sorted_test   passed at:exec_sort_algo,sort.cpp:367
+ 5.negt_test         failed at  exec_sort_algo, sort.cpp:365
+------------Testing btree_sort------------------
+ 1.single_input_test : 1
+ 1.single_input_test passed at:exec_sort_algo,sort.cpp:367
+ 2.sorted_input_test : 1 2 3 4
+ 2.sorted_input_test passed at:exec_sort_algo,sort.cpp:367
+ 3.equal_input_test  : 1 1 1 1
+ 3.equal_input_test  passed at:exec_sort_algo,sort.cpp:367
+ 4.rev_sorted_test   : 61 71 81 91
+ 4.rev_sorted_test   passed at:exec_sort_algo,sort.cpp:367
+ 5.negt_test         : -81 -61 71 91
+ 5.negt_test         passed at:exec_sort_algo,sort.cpp:367
+ 
+ Test name                2000       4000       6000       8000      10000      20000      30000      40000      50000      60000      70000      80000      90000     100000 
+         Bubble Sort     10051      46118     109250     203554     344925    1453797    3333648    6048717    9729224   13973218   19242890   25108140   32026084   40033855 
+      Insertion Sort      2982      13034      27101      47125      72186     292733     673770    1189059    1866844    2699030    3700629    4802460    6104844    7568659
+      Selection Sort      7027      27071      58150     105270     158434     607607    1379579    2471446    3855018    5505312    7550558    9819474   12431237   15278612
+          Merge Sort      4001      11027      24093      42113      66166     267648     598583    1084804    1674357    2408246    3324623    4350266    5559437    6791588
+          Quick Sort      1006          0       1003       1002       1027       3007       5012       6015       7018      10034      10026      14036      14036      17070
+           heap_sort       998       1034       2003       1979       2005       6016       8052      10026      16043      17044      21051      24033      29041      31080
+       counting_sort         0          0          0          0          0          0       1002       1002       1002       1001       1037       1002       3008       3007
+          btree_sort         0          0       1033       2005       3008       5013       9022      11028      17074      18076      22056      26055      30100      33088
