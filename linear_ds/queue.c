@@ -1,10 +1,11 @@
-
-#include "../../ds_algo1/data_structure/queue.h"
+/*gcc -DDEBUG .\queue.c -lpthread*/
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <pthread.h>
 #include <assert.h>
 
+#include "queue.h"
 
 #ifdef DEBUG
 #define dprintf(frmt,...)  fprintf(stdout, frmt, ##__VA_ARGS__)
@@ -14,24 +15,60 @@
 
 #define QUEUE_MARKER_MAGIC (0xFF12FF12)
 #define QUEUE_IS_VALID(q)   do { if( q == NULL || q->magic != QUEUE_MARKER_MAGIC) { \
-									dprintf("Invalid Queue \n"); \
-									return EXIT_FAILURE; \
-								} } while(0)
+					dprintf("Invalid Queue \n"); \
+					return EXIT_FAILURE; \
+				} } while(0)
 
 typedef struct _queue {
 	int front, back;
 	unsigned capacity;
 	unsigned magic;
 	int* array;
+	pthread_mutex_t lock;
 } queue;
+
+unsigned int queue_num_avail(queue *q)
+{
+	if (q->front == -1)
+		return q->capacity;
+
+	if (q->front == (q->back + 1) % q->capacity)
+		return 0;
+
+	if (q->back > q->front)
+		return q->capacity - (q->back + 1) + q->front ;
+
+	if (q->back < q->front)
+		return q->front - (q->back +1);
+
+	return q->capacity -1;
+}
+
+unsigned int queue_num_filled(queue *q)
+{
+	if (q->front == -1)
+		return 0;
+
+	if (q->front == (q->back + 1) % q->capacity)
+		return q->capacity;
+
+	if (q->back > q->front)
+		return q->back - q->front + 1;
+
+	if (q->back < q->front)
+		return q->capacity - q->front +  q->back;
+
+	return 1;
+
+}
 
 queue* queue_create(unsigned capacity)
 {
-	queue* newQ = (queue*) malloc(sizeof(queue));
+	queue* newQ = (queue*)calloc(1, sizeof(queue));
 	if (newQ == NULL)
 		return NULL;
 
-	newQ->array = (int*) malloc(capacity * sizeof(int));
+	newQ->array = (int*)calloc(capacity, sizeof(int));
 	if (newQ->array == NULL) {
 		free(newQ);
 		return NULL;
@@ -41,12 +78,13 @@ queue* queue_create(unsigned capacity)
 	newQ->back = -1;
 	newQ->magic = QUEUE_MARKER_MAGIC;
 	newQ->capacity = capacity;
-
+	pthread_mutex_init(&newQ->lock, NULL);
 	return newQ;
 }
 int queue_free(queue **q_ref){
 
 	queue *q = *q_ref;
+	pthread_mutex_destroy(&q->lock);
 	free(q->array);
 	q->array = NULL;
 	free(q);
@@ -69,38 +107,101 @@ int queue_is_full(queue *q)
 int queue_push(queue *q, int data)
 {
 	QUEUE_IS_VALID(q);
+
 	if (queue_is_full(q) == 0) {
 		dprintf("\n:Overflow: FRONT: %d BACK:%d %d", q->front, q->back, q->capacity);
-		//TODO add resize
 		return EXIT_FAILURE;
 	}
+
+	pthread_mutex_lock(&q->lock);
+
+	if(q->back == -1)
+		q->front = 0;
+	q->back = (q->back + 1) % q->capacity;
+	q->array[q->back] = data;
+
+	pthread_mutex_unlock(&q->lock);
+
+	dprintf("\n:Added: FRONT:%d Rear:%d DATA %d", q->front,q->back,q->array[q->back] );
+	return EXIT_SUCCESS;
+}
+
+int queue_push_batch(queue *q, int* data, int len)
+{
+	int avail;
+	QUEUE_IS_VALID(q);
+
+	avail = queue_num_avail(q);
+
+	if(avail < len)
+		return EXIT_FAILURE;
+
+	pthread_mutex_lock(&q->lock);
 
 	if(q->back == -1)
 		q->front = 0;
 
-	q->back = (q->back + 1) % q->capacity;
-	q->array[q->back] = data;
+	for (int i = 0; i < len; i++) {
+		q->back = (q->back + 1) % q->capacity;
+		q->array[q->back] = data[i];
+	}
 
-	dprintf("\n:Added: FRONT:%d Rear:%d DATA %d", q->front,q->back,q->array[q->back] );
+	pthread_mutex_unlock(&q->lock);
+
 	return EXIT_SUCCESS;
 }
 
 int queue_pop(queue *q)
 {
 	int data;
+
 	QUEUE_IS_VALID(q);
+
 	if (queue_is_empty(q) == 0) {
 		dprintf("\n:underflow: FRONT: %d Rear:%d SIZE:%d ", q->front,q->back,q->capacity);
 		return EXIT_FAILURE;
 	}
+
 	dprintf("\n:Removing: FRONT: %d Rear:%d SIZE:%d ", q->front, q->back, q->capacity);
+
+	pthread_mutex_lock(&q->lock);
 
 	data = q->array[q->front];
 	q->array[q->front] = -1;
 	if(q->front == q->back)
 		q->front = q->back = -1;
 	else
-	q->front = (q->front + 1) % q->capacity;
+		q->front = (q->front + 1) % q->capacity;
+
+	pthread_mutex_unlock(&q->lock);
+
+	return data;
+}
+
+int queue_pop_batch(queue *q, int* data, int len)
+{
+	int fill;
+
+	QUEUE_IS_VALID(q);
+
+	fill = queue_num_filled(q);
+
+	if (fill < len)
+		return EXIT_FAILURE;
+
+	dprintf("\n:Removing: FRONT: %d Rear:%d SIZE:%d ", q->front, q->back, q->capacity);
+
+	pthread_mutex_lock(&q->lock);
+
+	for (int i = 0; i < len; i++) {
+		data[i] = q->array[q->front];
+		q->array[q->front] = -1;
+		if(q->front == q->back)
+			q->front = q->back = -1;
+		else
+			q->front = (q->front + 1) % q->capacity;
+	}
+	pthread_mutex_unlock(&q->lock);
 
 	return data;
 }
