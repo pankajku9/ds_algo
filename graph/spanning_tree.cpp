@@ -309,8 +309,8 @@ int test_prims1()
 
 int main()
 {
-	test_disjoint();
+	//test_disjoint();
 	test_krushkal();
-	test_prims();
-	test_prims1();
+	//test_prims();
+	//test_prims1();
 }
