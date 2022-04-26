@@ -1,4 +1,4 @@
-Implementation and testing of important data structures and algorithms
+Implementation and testing of data structures and algorithms
 
 # Details
 This repository contains implementation (in c and c++) of data structures and various operation on them. 
