@@ -1,0 +1,3 @@
+cmake_minimum_required(VERSION 3.10)
+project(Data_Structure_Algorithms)
+add_subdirectory(linear_ds)
