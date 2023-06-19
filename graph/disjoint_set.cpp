@@ -17,7 +17,11 @@
 
     void set_union(vector<int> &par, int x, int y)
     {
-        par[y] = x;
+        int a = set_find(par, x);
+        int b = set_find(par, y);
+        
+        /* Make a as parent of b */
+        par[b] = a;
     }
 
     int main()
